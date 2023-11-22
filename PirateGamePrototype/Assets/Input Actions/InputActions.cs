@@ -44,6 +44,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootCannon"",
+                    ""type"": ""Button"",
+                    ""id"": ""57c926e1-65a7-4371-beb4-7a54d7ade62d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootCannonSpecial"",
+                    ""type"": ""Button"",
+                    ""id"": ""12a358ff-4894-4c2e-a9d7-c049e791fc05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +108,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MovementRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2b75ca6-df2a-4f64-8185-d09ab286868b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootCannon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""709c8735-c968-4f4e-a2c2-bd1a64e2bba1"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootCannonSpecial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -100,6 +140,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MovementForward = m_Player.FindAction("MovementForward", throwIfNotFound: true);
         m_Player_MovementRotation = m_Player.FindAction("MovementRotation", throwIfNotFound: true);
+        m_Player_ShootCannon = m_Player.FindAction("ShootCannon", throwIfNotFound: true);
+        m_Player_ShootCannonSpecial = m_Player.FindAction("ShootCannonSpecial", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,12 +205,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_MovementForward;
     private readonly InputAction m_Player_MovementRotation;
+    private readonly InputAction m_Player_ShootCannon;
+    private readonly InputAction m_Player_ShootCannonSpecial;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
         public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MovementForward => m_Wrapper.m_Player_MovementForward;
         public InputAction @MovementRotation => m_Wrapper.m_Player_MovementRotation;
+        public InputAction @ShootCannon => m_Wrapper.m_Player_ShootCannon;
+        public InputAction @ShootCannonSpecial => m_Wrapper.m_Player_ShootCannonSpecial;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -184,6 +230,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MovementRotation.started += instance.OnMovementRotation;
             @MovementRotation.performed += instance.OnMovementRotation;
             @MovementRotation.canceled += instance.OnMovementRotation;
+            @ShootCannon.started += instance.OnShootCannon;
+            @ShootCannon.performed += instance.OnShootCannon;
+            @ShootCannon.canceled += instance.OnShootCannon;
+            @ShootCannonSpecial.started += instance.OnShootCannonSpecial;
+            @ShootCannonSpecial.performed += instance.OnShootCannonSpecial;
+            @ShootCannonSpecial.canceled += instance.OnShootCannonSpecial;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -194,6 +246,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MovementRotation.started -= instance.OnMovementRotation;
             @MovementRotation.performed -= instance.OnMovementRotation;
             @MovementRotation.canceled -= instance.OnMovementRotation;
+            @ShootCannon.started -= instance.OnShootCannon;
+            @ShootCannon.performed -= instance.OnShootCannon;
+            @ShootCannon.canceled -= instance.OnShootCannon;
+            @ShootCannonSpecial.started -= instance.OnShootCannonSpecial;
+            @ShootCannonSpecial.performed -= instance.OnShootCannonSpecial;
+            @ShootCannonSpecial.canceled -= instance.OnShootCannonSpecial;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -215,5 +273,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnMovementForward(InputAction.CallbackContext context);
         void OnMovementRotation(InputAction.CallbackContext context);
+        void OnShootCannon(InputAction.CallbackContext context);
+        void OnShootCannonSpecial(InputAction.CallbackContext context);
     }
 }

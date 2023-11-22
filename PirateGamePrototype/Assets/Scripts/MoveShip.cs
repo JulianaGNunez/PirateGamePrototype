@@ -6,6 +6,7 @@ using UnityEngine;
 public class MoveShip : MonoBehaviour
 {
     public Rigidbody2D _rigidbody;
+    public ShipLife _shipLife;
 
     public int _force = 30;
     public int _maxForce = 100;
@@ -15,6 +16,11 @@ public class MoveShip : MonoBehaviour
     private bool _enableMovementForward = false;
 
     private float _rotationDirection;
+
+    private void Start()
+    {
+        _shipLife._shipDestroyed += SetShipDestroyed;
+    }
 
     private void FixedUpdate()
     {
@@ -32,6 +38,12 @@ public class MoveShip : MonoBehaviour
     public void SetEnableMovementForward(bool value)
     {
         _enableMovementForward = value;
+    }
+
+    public void SetShipDestroyed()
+    {
+        _enableMovementForward = false;
+        _rotationDirection = 0;
     }
 
     public void SetRotationDirection(float value)

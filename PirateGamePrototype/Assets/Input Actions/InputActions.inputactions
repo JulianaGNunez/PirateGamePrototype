@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShootCannon",
+                    "type": "Button",
+                    "id": "57c926e1-65a7-4371-beb4-7a54d7ade62d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShootCannonSpecial",
+                    "type": "Button",
+                    "id": "12a358ff-4894-4c2e-a9d7-c049e791fc05",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -68,6 +86,28 @@
                     "action": "MovementRotation",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d2b75ca6-df2a-4f64-8185-d09ab286868b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootCannon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "709c8735-c968-4f4e-a2c2-bd1a64e2bba1",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootCannonSpecial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

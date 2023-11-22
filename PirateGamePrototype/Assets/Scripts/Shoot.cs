@@ -5,15 +5,21 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
 
-    GameObject _cannonBallPrefab;
+    public GameObject _cannonBallPrefab;
 
-    public bool _shootOnPlayer = false;
+    public bool _ignorePlayerShip = false;
 
 
     public void ShootMethod(float rotation)
     {
         GameObject instance = GameObject.Instantiate(_cannonBallPrefab);
         instance.transform.SetParent(null);
-        instance.transform.eulerAngles += new Vector3(0,0,rotation);
+        instance.transform.position = transform.position;
+        instance.transform.eulerAngles = new Vector3(0,0, transform.localEulerAngles.z + rotation);
+
+        if (instance.TryGetComponent<CannonBall>(out CannonBall cannonBall))
+        {
+            cannonBall._ignorePlayerShip = _ignorePlayerShip;
+        }
     }
 }
