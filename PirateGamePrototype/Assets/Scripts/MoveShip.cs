@@ -48,7 +48,6 @@ public class MoveShip : MonoBehaviour
 
     public void RotateShip()
     {
-        //_rigidbody.angularVelocity = Mathf.Clamp(_rigidbody.angularVelocity + (-_rotationDirection) * _rotationSpeed * Time.fixedDeltaTime, -40, 40);
         _rigidbody.MoveRotation(_rigidbody.rotation + (-_rotationDirection) * _rotationSpeed * Time.fixedDeltaTime);
     }
 }
