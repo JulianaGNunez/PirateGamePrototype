@@ -446,10 +446,11 @@ GameObject:
   - component: {fileID: 490752661}
   - component: {fileID: 490752660}
   - component: {fileID: 490752662}
-  - component: {fileID: 490752663}
   - component: {fileID: 490752664}
   - component: {fileID: 490752665}
   - component: {fileID: 490752666}
+  - component: {fileID: 490752667}
+  - component: {fileID: 490752668}
   m_Layer: 0
   m_Name: Enemy Ship
   m_TagString: Untagged
@@ -583,37 +584,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2bfcabe67cdc24c8913b002bb143ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aiLerp: {fileID: 490752663}
+  _aiPath: {fileID: 490752667}
+  _shoot: {fileID: 490752668}
+  _rigidbody: {fileID: 490752666}
   _target: {fileID: 1300555038}
---- !u!114 &490752663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 490752652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847a14d4dc9cc43679ab34fc78e0182f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
-  autoRepath:
-    mode: 2
-    interval: 0.5
-    sensitivity: 10
-    maximumInterval: 2
-    visualizeSensitivity: 0
-  canMove: 1
-  speed: 0.8
-  orientation: 1
-  enableRotation: 1
-  rotationSpeed: 2
-  interpolatePathSwitches: 1
-  switchPathInterpolationSpeed: 5
-  targetCompatibility: {fileID: 0}
-  repathRateCompatibility: NaN
-  canSearchCompability: 0
+  _player: {fileID: 1300555038}
+  _speedRotation: 30
+  _reloadCannonTime: 3
+  _angleToShoot: 5
 --- !u!95 &490752664
 Animator:
   serializedVersion: 5
@@ -677,6 +655,62 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &490752667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490752652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 0.62
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 30
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 0.6
+  endReachedDistance: 3
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 1
+--- !u!114 &490752668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490752652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa39c69beb5b6041bb705020e71abc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cannonBallPrefab: {fileID: 1176091085899197795, guid: b7a39c20f4c5b164fa43d30871dd4385, type: 3}
+  _ignorePlayerShip: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7096,7 +7130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACwn+v4XcgFWwIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk0H00BKb60hpIckTGgnF18Wa401yJJHHwGS4b93JdvYpdOTpbdvd99+yB9MKFtj7rRZGcEfNUf2bcTCmX0a9cYHPMJOq414x47zKrgrAwki5wWc0IQnwc3qCp0R+Xe1k4E8JtArUWhTLfkOU22dJbgAaZFMRrvgrQj6GLEjfW7mweVEp8ldOL3TaT4enemYo3JoempH7GgNy6tcQlUjD5J78mTahZ1GmqJiWsb4c7DlWkphWy3MnepYawq19VQJEbgAqi0KmNC1RLErXXu5OD8XhUXXijJwWghDLWqish+66VsFdt8oewPpQ57ZbRTVxHz8x3yTRHNhdPXQpU3GIYUrRb5/gVMO1g36OoQXve4k9ucAcg9bia8lqie9MtorTkZnfHD1FieL/nqpLC0x3/d4I/UK9PX/pxNqOMfij6kU1TY2/rYBNlLHdsfZo6HR/CTBcTNsG4LQoOK3xV+wG65Qa7gXxjoytVWqIG+rvQlUtow9C9V4l2qjMMKt6BoVSHdaUxh3PcEr2yDtleUewmNpk7e27g1cuUS454/HV6a1PlyGZUt9eERbPnsnhcJedDA8UZ9SrVSzYMOedG4bbwrIB247L/jfq8W+4owDx2mSzPismOPNFjjcTb4kOC3m0xluWdw9oahOkOtGaNsemprqgyvas+4fMloZqOOycwOHlXiv9KDlQhV6kxtE9dxEuAhHQ0noWfIlF9SgDTonVJw3+8iY1PkeeXYJlMVKl0dnIOujZKwWb9oFJGNp/GlkLMCXXV4bfBN4CMm7YGd2/gNQSwMEFAAACAgAALCf6+iMBcFtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJFqllKYkqqqaGhWYpZmmWqblJiSqK5kbFhqmmapalZapJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAALCf6/hdyAVbAgAAEwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAALCf6+iMBcFtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABgAwAAAAA=
+    dataString: UEsDBBQAAAgIAACwn+uViuHnWgIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk0H00BKb60hpIckTGgnF18Wa401yJJHHwGS4b93JdvYpdOTpbdvd99+yB9MKFtj7rRZGcEfNUf2bcTCmX0a9cYHPMJOq414x47zKrgrAwki5wWc0IQnwc3qCp0R+Xe1k4E8JtArUWhTLfkOU22dJbgAaZFMRrvgrQj6GLEjfW7mweVEp8ldOL3TaT4enemYo3JoempH7GgNy6tcQlUjD5J78rRjTxuaomJaxvjzNETXUgrbamHuVMdaU6itp0qIwAVQbVHAhK4lil3p2svF+bkoLLpWlIHTQhhqUROV/dBN3yqw+0bZG0gf8sxuo6gm5uM/5pskmgujq4cubTIOKVwp8v0LnHKwbtDXIbzodSexPweQe9hKfC1RPemV0V5xMjrjg6u3OFn010tlaYn5vscbqVegr/8/nVDDORZ/TKWotrHxtw2wkTq2O84eDY3mJwmOm2HbEIQGFb8t/oLdcIVaw70w1pGprVIFeVvtTaCyZexZqMa7VBuFEW5F16hAutOawrjrCV7ZBmmvLPcQHkubvLV1b+DKJcI9fzy+Mq314TIsW+rDI9ry2TspFPaig+GJ+pRqpZoFG/akc9t4U0A+cNt5wf9eLfYVZxw4TpNkxmfFHG+2wOFu8iXBaTGfznDL4u4JRXWCXDdC2/bQ1FQfXNGedf+Q0cpAHZedGzisxHulBy0XqtCb3CCq5ybCRTgaSkLPki+5oAZt0Dmh4rzZR8akzvfIs0ugLFa6PDoDWR8lY7V40y4gGUvjTyNjAb7s8trgm8BDSN4FO7PzH1BLAwQUAAAICAAAsJ/r6IwFwW0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kkWqWUpiSqqpoaFZilmaZapuUmJKormRsWGqaZqlqVlqklIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAsJ/rlYrh51oCAAATBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAsJ/r6IwFwW0AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 

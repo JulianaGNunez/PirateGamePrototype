@@ -22,7 +22,7 @@ public class CannonBall : MonoBehaviour
         {
             if(shipLife != null)
             {
-                if (shipLife._playerShip && _ignorePlayerShip)
+                if (_ignorePlayerShip)
                 {
                     _ignorePlayerShip = false;
                     return;
