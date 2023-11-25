@@ -47,7 +47,14 @@ public class ShipLife : MonoBehaviour
     public void EndedDestroyedShipAnimation()
     {
         _shipDestroyed?.Invoke();
-        Destroy(gameObject);
+        if (_playerShip)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
