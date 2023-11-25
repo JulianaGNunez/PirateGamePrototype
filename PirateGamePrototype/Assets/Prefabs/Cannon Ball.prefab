@@ -4944,6 +4944,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 1
   _speed: 10
+  _ball: {fileID: 3507383472844186796}
+  _ballCollider: {fileID: 4824312584256514402}
+  _ignorePlayerShip: 0
 --- !u!58 &4824312584256514402
 CircleCollider2D:
   m_ObjectHideFlags: 0

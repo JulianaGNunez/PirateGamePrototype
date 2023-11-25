@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 979063221897355144}
   - component: {fileID: 5463385051699939708}
   - component: {fileID: 8994921164778966315}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,8 +211,8 @@ MonoBehaviour:
   _selfShipLife: {fileID: 979063221897355144}
   _target: {fileID: 0}
   _enableShoot: 1
-  _explodeOnCollision: 0
-  _damageOnCollision: 0
+  _explodeOnCollision: 1
+  _damageOnCollision: 2
   _distanceToStop: 3
   _forceForward: 60
   _maxForceForward: 160
