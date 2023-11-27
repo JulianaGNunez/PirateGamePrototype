@@ -14,7 +14,7 @@ public class MoveNearShip : MonoBehaviour
 
     public ShipLife _selfShipLife;
 
-    public Transform _target;
+    public ShipLife _playerShipLife;
 
     public bool _enableShoot = true;
 
@@ -35,8 +35,13 @@ public class MoveNearShip : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (_selfShipLife._shipLife <= 0 || _playerShipLife._shipLife <= 0)
+        {
+            return;
+        }
+
         RotateShip();
-        if (Mathf.Abs(Vector2.Distance(_target.transform.position, transform.position)) > _distanceToStop)
+        if (Mathf.Abs(Vector2.Distance(_playerShipLife.transform.position, transform.position)) > _distanceToStop)
         {
             MoveShipFoward();
         }
@@ -66,7 +71,7 @@ public class MoveNearShip : MonoBehaviour
 
     private void RotateShip()
     {
-        Vector3 vectorToTarget = _target.transform.position - transform.position;
+        Vector3 vectorToTarget = _playerShipLife.transform.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * _speedRotation);
@@ -74,7 +79,7 @@ public class MoveNearShip : MonoBehaviour
 
     private void DecideToShoot()
     {
-        if (Vector2.Angle(transform.eulerAngles, _target.eulerAngles) < _angleToShoot)
+        if (Vector2.Angle(transform.eulerAngles, _playerShipLife.transform.eulerAngles) < _angleToShoot)
         {
             if (_reloadedCannon)
             {
@@ -89,7 +94,7 @@ public class MoveNearShip : MonoBehaviour
         {
             if (collision.gameObject.TryGetComponent<ShipLife>(out ShipLife shipLife))
             {
-                if (shipLife != null)
+                if (shipLife != null && shipLife._playerShip)
                 {
                     _selfCollider.enabled = false;
                     _selfShipLife?.TakeHit(1000);

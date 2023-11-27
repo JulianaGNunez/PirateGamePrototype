@@ -17,8 +17,15 @@ public class PlayerShootManager : MonoBehaviour
     private bool _cooldownSingleShotTrigger = true;
     private bool _cooldownSpecialShotTrigger = true;
 
+    private bool _allowShoot = false;
+
     public void ShootCannonBall()
     {
+        if (!_allowShoot)
+        {
+            return;
+        }
+
         if (_cooldownSingleShotTrigger)
         {
             StartCoroutine(ShootCannonCourotine());
@@ -27,7 +34,12 @@ public class PlayerShootManager : MonoBehaviour
 
     public void ShootSpecialConnonBall()
     {
-        if(_cooldownSingleShotTrigger && _cooldownSpecialShotTrigger)
+        if (!_allowShoot)
+        {
+            return;
+        }
+
+        if (_cooldownSingleShotTrigger && _cooldownSpecialShotTrigger)
         {
             StartCoroutine(ShootCannonSpecialCourotine());
             Sequence sequence = DOTween.Sequence();
@@ -55,5 +67,10 @@ public class PlayerShootManager : MonoBehaviour
         _cooldownSingleShotTrigger = true;
         yield return new WaitForSeconds(_cooldownSpecialShot - _cooldownSingleShot);
         _cooldownSpecialShotTrigger = true;
+    }
+
+    public void AllowShoot(bool value)
+    {
+        _allowShoot = value;
     }
 }

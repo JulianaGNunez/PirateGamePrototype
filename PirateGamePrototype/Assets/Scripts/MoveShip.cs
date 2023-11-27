@@ -17,6 +17,9 @@ public class MoveShip : MonoBehaviour
 
     private float _rotationDirection;
 
+    [HideInInspector]
+    public bool _allowMovement = false;
+
     private void Start()
     {
         _shipLife._shipDestroyed += SetShipDestroyed;
@@ -24,15 +27,23 @@ public class MoveShip : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_enableMovementForward)
+        if (_allowMovement)
         {
-            MoveShipFoward();
-        }
+            if (_enableMovementForward)
+            {
+                MoveShipFoward();
+            }
 
-        if (_rotationDirection != 0)
-        {
-            RotateShip();
+            if (_rotationDirection != 0)
+            {
+                RotateShip();
+            }
         }
+    }
+
+    public void AllowMovement(bool value)
+    {
+        _allowMovement = value;
     }
 
     public void SetEnableMovementForward(bool value)
@@ -42,6 +53,7 @@ public class MoveShip : MonoBehaviour
 
     public void SetShipDestroyed()
     {
+        _allowMovement = false;
         _enableMovementForward = false;
         _rotationDirection = 0;
     }
